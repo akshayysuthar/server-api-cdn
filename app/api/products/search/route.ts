@@ -1,17 +1,18 @@
+
 import { supabase } from "@/utils/supabase/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
+export async function GET(request: NextRequest) {
+  const query = request.nextUrl.searchParams.get("query") ?? "";
 
-export async function GET() {
 
   const { data, error } = await supabase
-    .from("categories")
+    .from("products")
     .select("*")
-    .order("sort_order", { ascending: true });
+    .ilike("title", `%${query}%`);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-
   return NextResponse.json(data);
 }
