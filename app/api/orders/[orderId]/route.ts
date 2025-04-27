@@ -1,11 +1,9 @@
 import { supabase } from "@/utils/supabase/client";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { orderId: string } }
-) {
-  const { orderId } = params;
+export async function GET(request: NextRequest) {
+  // Get orderId from the URL instead of params
+  const orderId = request.url.split("/").pop();
 
   const { data, error } = await supabase
     .from("orders")
