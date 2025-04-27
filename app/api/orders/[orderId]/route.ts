@@ -1,13 +1,10 @@
 import { supabase } from "@/utils/supabase/client";
 import { NextRequest, NextResponse } from "next/server";
 
-interface RouteParams {
-  params: {
-    orderId: string;
-  };
-}
-
-export async function GET(request: NextRequest, { params }: RouteParams) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { orderId: string } }
+) {
   const { orderId } = params;
 
   const { data, error } = await supabase
